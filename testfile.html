@@ -13,23 +13,61 @@
         h1 {
             background: green;
         }
+
+        .hidden {
+            display: none;
+        }
+
+        #dev-info {
+            position: fixed;
+            right: 0;
+            top: 0;
+            background-color: lightgrey;
+            padding: 1rem;
+        }
     </style>
 </head>
 
 <body>
+    <!-- TODO create logic to hide this once mouse is over the div, and logic to disable it.
+    User will need to have access to whole browser window -->
+    <div id="dev-info" class="hidden">
+        <div>
+            <p id="dev-status">DEVELOPER MODE IS ON! Turn off caps lock, or disable extension</p>
+        </div>
+        <div>
+            <!-- TODO create logic to hide or show this -->
+            <p>Press and hold ctrl + one of the dedicated keys.</p>
+            <div>
+                <ul>
+                    <li>F logs F to console!</li>
+                    <li>X logs X to console!</li>
+                </ul>
+            </div>
+        </div>
+
+    </div>
+
+
+
     <p>P tag 1</p>
     <span>span</span>
     <h1>h1</h1>
     <p>P tag 2</p>
     <script>
+        const devInfo = document.getElementById("dev-info")
         const inspectorColor = "lightgreen"
         // Whitelisted keys, each one representing a task
         const assignedTaskKeys = ["f", "x"]
         let taskKey = "";
-        let capsIsOn = undefined;
+        let devModeOn = undefined;
+
+        const editDevInfoVisibility = (oldClass, newClass) => {
+            devInfo.classList.replace(newClass, oldClass)
+        }
 
         document.addEventListener("mousemove", (event) => {
-            if (!(event.shiftKey && capsIsOn)) return;
+            if (!(event.shiftKey && devModeOn)) return;
             let target = event.target;
             target.style.background = inspectorColor;
         });
@@ -39,8 +77,8 @@
             target.style.background = '';
         });
 
-        document.addEventListener("click", (event) => {            
-            if (!(event.shiftKey && capsIsOn)) return;
+        document.addEventListener("click", (event) => {
+            if (!(event.shiftKey && devModeOn)) return;
             switch (taskKey) {
                 case "f":
                     console.log("F is activated ")
@@ -58,8 +96,14 @@
             if (event.repeat) {
                 return
             }
-            capsIsOn = event.getModifierState('CapsLock');
-            if (!(assignedTaskKeys.includes(event.key.toLowerCase()) && event.shiftKey && capsIsOn)) return;
+            devModeOn = event.getModifierState('CapsLock');
+            if (devModeOn && devInfo.classList.contains("hidden")) {
+                editDevInfoVisibility("shown", "hidden");
+            }
+            if (!devModeOn && devInfo.classList.contains("shown")) {
+                editDevInfoVisibility("hidden", "shown");
+            }
+            if (!(assignedTaskKeys.includes(event.key.toLowerCase()) && event.shiftKey && devModeOn)) return;
             taskKey = event.key.toLowerCase();
         });
 
