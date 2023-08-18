@@ -26,32 +26,30 @@
         // Whitelisted keys, each one representing a task
         const assignedTaskKeys = ["f", "x"]
         let taskKey = "";
+        let capsIsOn = undefined;
 
         document.addEventListener("mousemove", (event) => {
-            event.preventDefault();
-            if (!(event.shiftKey && event.altKey)) return;
+            if (!(event.shiftKey && capsIsOn)) return;
             let target = event.target;
             target.style.background = inspectorColor;
         });
 
         document.addEventListener("mouseout", (event) => {
-            event.preventDefault();
             let target = event.target;
             target.style.background = '';
         });
 
-        document.addEventListener("click", (event) => {
-            event.preventDefault()
-            if (!(event.shiftKey && event.altKey)) return;
-            console.log("hi")
+        document.addEventListener("click", (event) => {            
+            if (!(event.shiftKey && capsIsOn)) return;
             switch (taskKey) {
                 case "f":
-                    console.log("Do something taskKey 1")
+                    console.log("F is activated ")
                     break;
                 case "x":
-                    console.log("Do something taskKey 2");
+                    console.log("x is activated ");
                     break;
                 default:
+                    console.log("No task called")
                     return;
             }
         });
@@ -60,8 +58,16 @@
             if (event.repeat) {
                 return
             }
-            if (!(assignedTaskKeys.includes(event.key.toLowerCase()) && event.shiftKey && event.altKey)) return
+            capsIsOn = event.getModifierState('CapsLock');
+            if (!(assignedTaskKeys.includes(event.key.toLowerCase()) && event.shiftKey && capsIsOn)) return;
             taskKey = event.key.toLowerCase();
+        });
+
+        document.addEventListener("keyup", (event) => {
+            if (event.repeat) {
+                return
+            }
+            taskKey = "";
         });
     </script>
 
