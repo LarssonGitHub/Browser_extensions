@@ -1,0 +1,55 @@
+<!-- TODO remove this html file once it isn't needed, or have been replaced with a script. -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        p {
+            background: red;
+        }
+
+        h1 {
+            background: green;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        #dev-info {
+            position: fixed;
+            right: 0;
+            top: 0;
+            background-color: pink;
+            padding: 1rem;
+            width: 400px;
+            height: 400px;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- TODO create logic to hide this once mouse is over the div, and logic to disable it.
+    User will need to have access to whole browser window -->
+    <div id="dev-info" class="hidden" style="width: 20%; height: 20%; overflow: hidden;">
+        <div>
+            <p id="dev-status">DEVELOPER MODE IS ON! Turn off caps lock, or disable extension</p>
+        </div>
+        <div>
+            <!-- TODO create logic to hide or show this -->
+            <p>Press and hold ctrl + one of the dedicated keys.</p>
+            <div>
+                <ul>
+                    <li>F logs F to console!</li>
+                    <li>X logs X to console!</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <script src="javascript.js"></script>
+</body>
+
+</html>
