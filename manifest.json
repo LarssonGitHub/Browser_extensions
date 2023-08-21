@@ -15,7 +15,8 @@
     "background": {
         "service_worker": "background.js"
       },
-    "permissions": ["scripting", "tabs", "activeTab", "bookmarks"],
+      "persistent": false,
+    "permissions": ["scripting", "tabs", "activeTab", "bookmarks", "storage"],
     "host_permissions": ["https://*"],
     "_comments-for-manifest.json": {
         "_comment-1": "Video and repo by TUTORIEX for further research: https://www.youtube.com/watch?v=kuKfv-M3KFk | https://github.com/TUTORIEX/chrome-extension-101",
